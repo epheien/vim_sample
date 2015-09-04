@@ -5,3 +5,6 @@ set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
 exec 'set runtimepath^=' . fnameescape(s:dir) . '/dotvim'
 exec 'set runtimepath+=' . fnameescape(s:dir) . '/dotvim/after'
+
+" init pathogen
+call pathogen#infect()
