@@ -6,5 +6,93 @@ set runtimepath-=~/.vim/after
 exec 'set runtimepath^=' . fnameescape(s:dir) . '/dotvim'
 exec 'set runtimepath+=' . fnameescape(s:dir) . '/dotvim/after'
 
-" init pathogen
+" ============================================================================
+" 基本设定
+" ============================================================================
+" 关闭 vi 兼容模式，否则无法使用 vim 的大部分扩展功能
+set nocompatible
+" 在 vim 窗口右下角，标尺的右边显示未完成的命令
+set showcmd
+" 增强的命令行补全
+set wildmenu
+" 左下角显示当前模式
+set showmode
+" 打开语法高亮
+syntax on
+" 打开文件类型的检测
+filetype on
+" 可以为特定的文件类型允许插件文件的载入
+filetype plugin on
+" 可以为特定的文件类型载入缩进文件
+filetype indent on
+" 设定文件编码类型，彻底解决中文编码问题
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk,gb18030,ucs-bom,cp936
+" 设置键码延时, 避免终端下 <ESC> 的等待
+set ttimeoutlen=50
+" 搜索时忽略大小写
+set ignorecase
+" 如果搜索模式包含大写字符，不使用 'ignorecase' 选项
+set smartcase
+" 设置搜索结果高亮显示
+set hlsearch
+" 在搜索模式时输入时即时显示相应的匹配点
+set incsearch
+" 启动对鼠标的支持
+set mouse=a
+" 允许光标移动到刚刚超过行尾字符之后的位置, 允许可视列块模式的虚拟编辑
+set virtualedit=onemore,block
+" 显示 80 字符右边距的实现，需要 7.3 以上版本
+if version >= 703 | set cc=81 | endif
+" 使新行缩进与前一行一样
+set autoindent
+" 删除环境变量 LANGUAGE，不然会影响某些插件无法提取英文环境下的命令输出
+"let $LANGUAGE=''
+
+" NOTE: 很重要的缩进设置, 根据需要自己设置!
+"set tabstop=4      " 历史上, <Tab> 是 8 个空白
+set softtabstop=4   " 避免修改 tabstop, 详见 :h 'sts'
+set shiftwidth=4    " (自动) 缩进每一步使用的空白数目
+set expandtab       " 插入模式里: 插入 <Tab> 时使用合适数量的空格
+
+" 配色方案
+if has('gui_running')   " gui 的情况下
+    colorscheme desertEx
+elseif &t_Co == 256     " 支持 256 色的话
+    colorscheme desertEx256
+elseif $TERM ==# "xterm"
+    colorscheme default
+else
+    colorscheme default
+endif
+
+" 摘录自 vimrc, sample by Bram
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+augroup Epheien
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \     exe "normal! g`\"" |
+    \ endif
+augroup End
+
+" ============================================================================
+" 常规键盘映射
+" ============================================================================
+" 简易的窗口移动键位绑定, 常用, 够用
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" ============================================================================
+" 插件设置
+" ============================================================================
+" init pathogen, 最早貌似只能放到这里, autoload 载入比较迟?
 call pathogen#infect()
+
+" vim 的语法高亮效率较低, 在插入模式编辑时高亮匹配的括号时会导致性能问题, 关掉
+let matchparen_noinsert = 1
