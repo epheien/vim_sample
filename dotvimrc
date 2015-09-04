@@ -1,0 +1,7 @@
+" stub for test
+let s:file = expand('<sfile>')
+let s:dir = fnamemodify(s:file, ':h')
+set runtimepath-=~/.vim
+set runtimepath-=~/.vim/after
+exec 'set runtimepath^=' . fnameescape(s:dir) . '/dotvim'
+exec 'set runtimepath+=' . fnameescape(s:dir) . '/dotvim/after'
