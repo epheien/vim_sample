@@ -96,3 +96,5 @@ call pathogen#infect()
 
 " vim 的语法高亮效率较低, 在插入模式编辑时高亮匹配的括号时会导致性能问题, 关掉
 let matchparen_noinsert = 1
+
+" vim: fdm=marker fen fdl=0 et sts=4
