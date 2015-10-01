@@ -1,0 +1,14 @@
+" 字体设置
+if has("win32") || has("win64")
+    set guifont=Consolas:h10:cDEFAULT
+else
+    set guifont=monospace\ 9
+endif
+
+" 初始窗口大小
+set columns=90 lines=50
+
+" 显示行号
+set number
+
+" vim: fdm=marker fen fdl=0 et sts=4
