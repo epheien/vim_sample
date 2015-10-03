@@ -11,6 +11,8 @@ exec 'set runtimepath+=' . fnameescape(s:dir) . '/dotvim/after'
 " ============================================================================
 " 关闭 vi 兼容模式，否则无法使用 vim 的大部分扩展功能
 set nocompatible
+" 让退格键以现代化的方式工作
+set backspace=2
 " 在 vim 窗口右下角，标尺的右边显示未完成的命令
 set showcmd
 " 增强的命令行补全
