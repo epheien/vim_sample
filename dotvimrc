@@ -6,6 +6,14 @@ set runtimepath-=~/.vim/after
 exec 'set runtimepath^=' . fnameescape(s:dir) . '/dotvim'
 exec 'set runtimepath+=' . fnameescape(s:dir) . '/dotvim/after'
 
+function s:IsUnixOS() "{{{
+    if has('win16') || has('win32') || has('win64')
+        return 0
+    else
+        return 1
+    endif
+endfunction
+"}}}
 " ============================================================================
 " 基本设定
 " ============================================================================
@@ -42,6 +50,8 @@ set hlsearch
 set incsearch
 " 启动对鼠标的支持
 set mouse=a
+" 鼠标右键弹出菜单
+set mousemodel=popup
 " 允许光标移动到刚刚超过行尾字符之后的位置, 允许可视列块模式的虚拟编辑
 set virtualedit=onemore,block
 " 显示 80 字符右边距的实现，需要 7.3 以上版本
@@ -80,6 +90,19 @@ autocmd BufReadPost *
     \     exe "normal! g`\"" |
     \ endif
 augroup End
+
+if s:IsUnixOS()
+    " 让鼠标右键菜单行为与Windows平台一致
+    noremap <RightMouse> <Nop>
+    noremap <RightRelease> <RightMouse>
+    noremap! <RightMouse> <Nop>
+    noremap! <RightRelease> <RightMouse>
+    " 不用鼠标左键 3、4 连击
+    noremap <3-LeftMouse> <Nop>
+    noremap! <3-LeftMouse> <Nop>
+    noremap <4-LeftMouse> <Nop>
+    noremap! <4-LeftMouse> <Nop>
+endif
 
 " ============================================================================
 " 常规键盘映射
