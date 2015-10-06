@@ -113,13 +113,66 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" 命令行太常用, : 不好按, 把 ; 映射成 :
+nnoremap ; :
+
 " ============================================================================
 " 插件设置
 " ============================================================================
+" ========== pathogen ==========
 " init pathogen, 最早貌似只能放到这里, autoload 载入比较迟?
 call pathogen#infect()
 
+" ========== matchparen ==========
 " vim 的语法高亮效率较低, 在插入模式编辑时高亮匹配的括号时会导致性能问题, 关掉
 let matchparen_noinsert = 1
 
+" ========== mark ==========
+" mark 不忽略大小写匹配
+let g:mwIgnoreCase = 0
+" mark 不修改历史
+let g:mwHistAdd = ''
+" 我们至少使用了256色, 需要较多的高亮组
+let g:mwDefaultHighlightingPalette = 'extended'
+
+" ========== NERDTree ==========
+hi link NERDTreeDir Statement
+hi link NERDTreeCWD Type
+
+" ========== tagbar ==========
+let g:tagbar_compact = 1
+let g:tagbar_width = 30
+
+" ========== videm ==========
+let g:videm_user_options = {
+    \ '.videm.Compatible'                   : 0,
+    \ '.videm.wsp.ShowBriefHelp'            : 1,
+    \ '.videm.wsp.keybind.PopupMenu'        : '<RightRelease>',
+    \ '.videm.wsp.LinkToEditor'             : 0,
+    \ '.videm.wsp.SaveBeforeBuild'          : 1,
+    \
+    \ '.videm.common.calltips.IndicateArgument' : 0,
+    \ '.videm.common.calltips.EnableSyntaxTest' : 0,
+    \
+    \ '.videm.cc.omnicpp.UseLibCxxParser'       : 1,
+    \ '.videm.cc.omnicpp.InclAllCondCmplBrch'   : 1,
+    \
+    \ '.videm.dbg.pyclewn.DisableNeedlessTools' : 0,
+    \ '.videm.dbg.pyclewn.SaveBpInfo'           : 1,
+\ }
+"let g:videm_user_options['.videm.wsp.AutoSession'] = 1
+let g:videm_user_options['.videm.cc.omnicpp.ItemSelectMode'] = 2
+let g:videm_user_options['.videm.symdb.Current'] = "gtags"
+let g:videm_user_options['.videm.cc.Current'] = ""
+
+" ========== VIMCCC ==========
+let g:VIMCCC_Enable = 0
+let g:VIMCCC_ItemSelectionMode = 2
+let g:VIMCCC_CompleteMacros = 1
+" for debian 7 x86_64
+if filereadable('/usr/lib/libclang.so.1')
+    let g:VIMCCC_ClangLibraryPath = '/usr/lib/libclang.so.1'
+endif
+
+" ----------------------------------------------------------------------------
 " vim: fdm=marker fen fdl=0 et sts=4
