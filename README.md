@@ -15,3 +15,10 @@ sample config for vim
 
 ## 杂项
 * c.vim
+
+## 依赖
+* vim (+cscope +netbeans_intg +python)
+* ctags
+* cscope
+* gun global
+* python 2.6+
