@@ -45,7 +45,6 @@ done
 shift $((OPTIND - 1))
 
 ## 流程开始
-cd "$__dir__"
-vim -u dotvimrc "$@"
+/usr/bin/vim -u "$__dir__/dotvimrc" "$@"
 
 # vi:set et sts=4 sw=4 ts=8:
