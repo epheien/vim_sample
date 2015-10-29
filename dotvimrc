@@ -67,6 +67,9 @@ set softtabstop=4   " 避免修改 tabstop, 详见 :h 'sts'
 set shiftwidth=4    " (自动) 缩进每一步使用的空白数目
 set expandtab       " 插入模式里: 插入 <Tab> 时使用合适数量的空格
 
+" 补全菜单的弹出方式, 常用的方式
+set completeopt=menuone
+
 " 配色方案
 if has('gui_running')   " gui 的情况下
     colorscheme desertEx
@@ -160,6 +163,8 @@ let g:mwIgnoreCase = 0
 let g:mwHistAdd = ''
 " 我们至少使用了256色, 需要较多的高亮组
 let g:mwDefaultHighlightingPalette = 'extended'
+" 清除所有 mark 高亮
+nnoremap <silent> <Leader>c :MarkClear<CR>
 
 " ========== NERDTree ==========
 hi link NERDTreeDir Statement
