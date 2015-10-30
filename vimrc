@@ -40,7 +40,9 @@ filetype indent on
 " 设定文件编码类型，彻底解决中文编码问题
 let &termencoding=&encoding
 set fileencodings=utf-8,gbk,gb18030,ucs-bom,cp936
-" 设置键码延时, 避免终端下 <ESC> 的等待
+" 为键码打开超时, 避免终端下 <ESC> 的等待
+set ttimeout
+" 等待键码超时时间
 set ttimeoutlen=50
 " 搜索时忽略大小写
 set ignorecase
