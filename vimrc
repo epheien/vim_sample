@@ -166,7 +166,7 @@ let g:mwIgnoreCase = 0
 " mark 不修改历史
 let g:mwHistAdd = ''
 " 我们至少使用了256色, 需要较多的高亮组
-let g:mwDefaultHighlightingPalette = 'extended'
+"let g:mwDefaultHighlightingPalette = 'extended'
 " 清除所有 mark 高亮
 nnoremap <silent> <Leader>c :MarkClear<CR>
 
