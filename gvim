@@ -5,6 +5,6 @@ __file__=$(readlink -f "$0")
 __name__=$(basename "$__file__")
 __dir__=$(dirname "$__file__")
 
-/usr/bin/gvim -u "$__dir__/dotvimrc" -U "$__dir__/dotgvimrc" "$@"
+/usr/bin/gvim -u "$__dir__/vimrc" -U "$__dir__/gvimrc" "$@"
 
 # vi:set et sts=4 sw=4 ts=8:
