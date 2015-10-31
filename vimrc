@@ -156,8 +156,8 @@ nnoremap <silent> <C-\>d :call <SID>CscopeQuery('d', expand("<cword>"))<CR>
 nnoremap <silent> <C-\>c :call <SID>CscopeQuery('c', expand("<cword>"))<CR>
 nnoremap <silent> <C-\>t :call <SID>CscopeQuery('t', expand("<cword>"))<CR>
 nnoremap <silent> <C-\>e :call <SID>CscopeQuery('e', expand("<cword>"))<CR>
-nnoremap <silent> <C-\>f :call <SID>CscopeQuery('f', expand("<cword>"))<CR>
-nnoremap <silent> <C-\>i :call <SID>CscopeQuery('i', '^'.expand("<cword>").'$')<CR>
+nnoremap <silent> <C-\>f :call <SID>CscopeQuery('f', expand("<cfile>"))<CR>
+nnoremap <silent> <C-\>i :call <SID>CscopeQuery('i', '^'.expand("<cfile>").'$')<CR>
 
 function! s:CscopeAdd(name) "{{{
     let prepath = fnamemodify(a:name, ':p:h')
