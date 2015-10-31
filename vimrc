@@ -94,9 +94,9 @@ endif
 augroup Epheien
 autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \     exe "normal! g`\"" |
+    \     exec "normal! g`\"" |
     \ endif
-augroup End
+augroup END
 
 if s:IsUnixOS()
     " 让鼠标右键菜单行为与Windows平台一致
