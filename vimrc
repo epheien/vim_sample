@@ -113,29 +113,59 @@ endif
 
 " ========== cscope 设置 ==========
 if has("cscope")
-    set cscopeverbose
-    set cscopetagorder=0
-    set cscopetag
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
+set cscopeverbose
+set cscopetagorder=0
+set cscopetag
+set cscopequickfix=s-,c-,d-,i-,t-,e-
 
-    " cscope 常用键位绑定
-    nnoremap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nnoremap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nnoremap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+function! s:CscopeQuery(qtype, name) "{{{
+    let pat = a:qtype.'+\|'.a:qtype.'-'
+    if match(&cscopequickfix, pat) >= 0
+        call s:CscopeQuerySetup()
+    endif
+    try
+        exec 'cscope find' a:qtype a:name
+    catch
+        call s:CscopeQueryClean()
+        echohl ErrorMsg
+        echomsg v:exception
+        echohl None
+    endtry
+    return ''
+endfunction
+function! s:CscopeQuerySetup()
+    augroup VIM_SAMPLE
+        autocmd! VIM_SAMPLE QuickFixCmdPost * call s:CscopeQueryQHook()
+    augroup END
+endfunction
+function! s:CscopeQueryClean()
+    autocmd! VIM_SAMPLE QuickFixCmdPost
+endfunction
+function! s:CscopeQueryQHook()
+    call s:CscopeQueryClean()
+    if len(getqflist()) > 1
+        botright cwindow
+    endif
+endfunction
+"}}}
 
-    function! s:CscopeAdd(name) "{{{
-        let prepath = fnamemodify(a:name, ':p:h')
-        exec printf('cs add %s %s', fnameescape(a:name), fnameescape(prepath))
-    endf
-    "}}}
-    command! -complete=file -nargs=1 CsAdd :call <SID>CscopeAdd("<args>")
-endif
+" cscope 常用键位绑定
+nnoremap <silent> <C-\>s :call <SID>CscopeQuery('s', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>g :call <SID>CscopeQuery('g', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>d :call <SID>CscopeQuery('d', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>c :call <SID>CscopeQuery('c', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>t :call <SID>CscopeQuery('t', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>e :call <SID>CscopeQuery('e', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>f :call <SID>CscopeQuery('f', expand("<cword>"))<CR>
+nnoremap <silent> <C-\>i :call <SID>CscopeQuery('i', '^'.expand("<cword>").'$')<CR>
 
+function! s:CscopeAdd(name) "{{{
+    let prepath = fnamemodify(a:name, ':p:h')
+    exec printf('cs add %s %s', fnameescape(a:name), fnameescape(prepath))
+endfunction
+"}}}
+command! -complete=file -nargs=1 CsAdd :call <SID>CscopeAdd("<args>")
+endif " has("cscope")
 
 " ============================================================================
 " 常规键盘映射
