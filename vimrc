@@ -202,7 +202,21 @@ let g:mwHistAdd = ''
 "let g:mwDefaultHighlightingPalette = 'extended'
 " 清除所有 mark 高亮
 nnoremap <silent> <Leader>c :MarkClear<CR>
-
+nnoremap <silent> <2-LeftMouse> :call <SID>MouseMark()<CR>
+function! s:MouseMark() "{{{
+    if &ft == "help"
+        exec "normal! \<C-]>"
+        return
+    endif
+    let c = getline('.')[col('.')-1]
+    if c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}'
+            \   || &buftype ==# 'quickfix'
+        exec "normal! \<2-LeftMouse>"
+        return
+    endif
+    exec "normal \<Plug>MarkSet"
+endfunction
+"}}}
 " ========== NERDTree ==========
 hi link NERDTreeDir Statement
 hi link NERDTreeCWD Type
