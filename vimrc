@@ -62,8 +62,15 @@ set virtualedit=onemore,block
 if version >= 703 | set cc=81 | endif
 " 使新行缩进与前一行一样
 set autoindent
+" 开启新行时使用智能自动缩进
+set smartindent
 " 删除环境变量 LANGUAGE，不然会影响某些插件无法提取英文环境下的命令输出
 "let $LANGUAGE=''
+
+" 定制状态栏, 显示有价值的信息
+set statusline=%<%f\ %h%w%m%r%y[%{&ff}]%([%{&fenc}]%)%=%(%l/%L,%c%V%)\ %P
+" 一直显示状态栏
+set laststatus=2
 
 " NOTE: 很重要的缩进设置, 根据需要自己设置!
 "set tabstop=4      " 历史上, <Tab> 是 8 个空白
