@@ -54,6 +54,8 @@ set hlsearch
 set incsearch
 " 启动对鼠标的支持
 set mouse=a
+" 让 vim 支持鼠标拖动窗口边缘, 以方便改变窗口大小
+set ttymouse=xterm2
 " 鼠标右键弹出菜单
 set mousemodel=popup
 " 允许光标移动到刚刚超过行尾字符之后的位置, 允许可视列块模式的虚拟编辑
