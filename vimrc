@@ -133,7 +133,7 @@ function! s:CscopeQuery(qtype, name) "{{{
         call s:CscopeQuerySetup()
     endif
     try
-        exec 'cscope find' a:qtype a:name
+        exec 'cscope find' a:qtype fnameescape(a:name)
     catch
         call s:CscopeQueryClean()
         echohl ErrorMsg
