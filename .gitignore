@@ -11,3 +11,8 @@ __pycache__/
 
 # help tags
 tags
+
+# gnu global files
+GPATH
+GRTAGS
+GTAGS
